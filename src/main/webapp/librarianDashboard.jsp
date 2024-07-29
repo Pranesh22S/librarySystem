@@ -70,6 +70,32 @@
             margin-bottom: 8px;
             font-weight: bold;
         }
+        table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-size: 16px;
+                    text-align: left;
+                }
+                th, td {
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                }
+                th {
+                    background-color: #4CAF50;
+                    color: white;
+                    font-weight: bold;
+                }
+                tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+                tr:hover {
+                    background-color: #ddd;
+                }
+                caption {
+                    font-size: 18px;
+                    margin: 10px;
+                }
         .content form input[type="text"],
         .content form input[type="number"],
         .content form input[type="password"] {
@@ -119,6 +145,7 @@
                     out.println("<h2>Welcome to the Library Management Dashboard</h2>");
                     out.println("<p>Select an action from the sidebar to manage the library.</p>");
                 } else {
+                    session.setAttribute("currentAction", action);
                     switch (action) {
                         case "addBook":
                             %>
@@ -181,10 +208,8 @@
                                 <input type="hidden" name="action" value="updateBook">
                                 <label for="bookId">Book ID:</label>
                                 <input type="text" id="bookId" name="bookId" required>
-
                                 <label for="bookName">Book Name:</label>
                                 <input type="text" id="bookName" name="bookName">
-
                                 <label for="author">Author:</label>
                                 <input type="text" id="author" name="author">
 
@@ -196,7 +221,6 @@
 
                                 <label for="booksCount">Number of Copies:</label>
                                 <input type="number" id="booksCount" name="booksCount">
-
                                 <input type="submit" value="Update Book">
                             </form>
                             <%
@@ -217,7 +241,7 @@
                         case "deleteAccount":
                             %>
                             <h2>Delete Account</h2>
-                            <form action="LibrarianServlet" method="post">
+                            <form action="LibrarianServlet" method="delete">
                                 <input type="hidden" name="action" value="deleteAccount">
                                 <label for="confirm">Enter YES to confirm account deletion:</label>
                                 <input type="text" id="confirm" name="confirm" required>
@@ -245,6 +269,8 @@
                             <input type="hidden" name="action" value="checkDues">
                             <h2>Check Dues and Assign Fines</h2>
                             <input type="submit" value="Check and Assign Fines">
+                            <br>
+                            <br>
                             <%
                             List<Student> studentDuesList = (List<Student>) request.getAttribute("studentDuesList");
                             if (studentDuesList != null && !studentDuesList.isEmpty()) {

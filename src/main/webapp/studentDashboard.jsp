@@ -133,10 +133,11 @@
                     out.println("<h2>Welcome to the Student Dashboard</h2>");
                     out.println("<p>Select an action from the sidebar to manage your library activities.</p>");
                 } else {
+                    session.setAttribute("currentAction", action);
                     switch (action) {
                         case "bookMenu":
                         %>
-                        <form action="Studentservlet" method="post">
+                        <form action="Studentservlet" method="get">
                             <input type="hidden" name="action" value="bookMenu">
                             <h1>Library Book List</h1>
                             <table>
@@ -246,7 +247,7 @@
                             case "deleteAccount":
                              %>
                              <h2>Delete Account</h2>
-                             <form action="studentervlet" method="post">
+                             <form action="studentervlet" method="delete">
                              <input type="hidden" name="action" value="deleteAccount">
                              <label for="confirm">Enter YES to confirm account deletion:</label>
                              <input type="text" id="confirm" name="confirm" required>
